@@ -1,6 +1,5 @@
 #include "include/raylib.h"
 
-//clang++ --target=x86_64-pc-windows-gnu -m64 -o game.exe mainy.cpp -O2 -I./include -L./lib -lraylib -lopengl32 -lgdi32 -lwinmm -lpthread -mwindow
 
 //g++ works so much better on windows
 //g++ -o game.exe mainy.cpp -O2 -I./include -L./lib -lraylib -lopengl32 -lgdi32 -lwinmm -static -mwindows
@@ -72,15 +71,6 @@ class Ball{
         }
 
 };
-
-
-
-
-
-
-
-
-
 
 
 
