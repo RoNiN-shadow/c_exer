@@ -1,7 +1,7 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "include/raylib.h"
+#include "raylib.h"
 
 class Ball{
     private:

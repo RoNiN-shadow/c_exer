@@ -1,4 +1,4 @@
-#include "src/player.h"
+#include "player.h"
 
 Player::Player(Rectangle pl, int balls){
     this->pl = pl;

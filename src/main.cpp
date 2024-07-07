@@ -1,6 +1,6 @@
-#include "include/raylib.h"
-#include "src/player.h"
-#include "src/ball.h"
+#include "raylib.h"
+#include "player.h"
+#include "ball.h"
 
 
 //g++ works so much better on windows

@@ -1,5 +1,5 @@
-#include "src/ball.h"
-#include "include/raylib.h"
+#include "ball.h"
+#include "raylib.h"
 
 Ball::Ball(Vector2 center, float radius){
     this->center = center;
