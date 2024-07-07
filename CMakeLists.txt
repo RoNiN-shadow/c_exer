@@ -1,39 +1,34 @@
 cmake_minimum_required(VERSION 3.10)
-project(CppRaylibGame)
+project(MyGame)
 
-# C++ standard
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Include directories
-include_directories(include)  # This assumes 'include' contains 'raylib.h'
-
-# Library directories (if needed)
-link_directories(lib)
-
-add_executable(game WIN32  # Add WIN32 here
+# Add executable target with WIN32 to prevent terminal window
+add_executable(MyGameApp WIN32
     src/main.cpp
     src/player.cpp
     src/ball.cpp
 )
 
-# Link libraries
-target_link_libraries(game raylib opengl32 gdi32 winmm)
+# Include directories
+target_include_directories(MyGameApp PRIVATE include)
 
-# Compiler options (adjust as needed)
-if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    target_compile_options(game PRIVATE /W4)
+# Specify the path to the raylib library
+target_link_directories(MyGameApp PRIVATE ${CMAKE_SOURCE_DIR}/lib)
+
+# Link libraries (example with raylib)
+target_link_libraries(MyGameApp PRIVATE raylib opengl32 gdi32 winmm)
+
+# Compiler options (example for MSVC and GCC/Clang)
+if (MSVC)
+    target_compile_options(MyGameApp PRIVATE /W4) # Warning level 4
     if (CMAKE_BUILD_TYPE STREQUAL "Release")
-        target_compile_options(game PRIVATE /O2 /MT)
+        target_compile_options(MyGameApp PRIVATE /O2 /MT) # Optimization and static runtime
     elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        target_compile_options(game PRIVATE /RTC1 /MTd)
+        target_compile_options(MyGameApp PRIVATE /RTC1 /MTd) # Runtime checks and debug static runtime
     endif ()
 else()
-    target_compile_options(game PRIVATE -O2 -static)
-    # Remove -mwindows from here as it's not needed with WIN32
+    target_compile_options(MyGameApp PRIVATE -O2) # Optimization for GCC/Clang
 endif ()
-
-# Set the subsystem to Windows
-set_target_properties(game PROPERTIES
-    WIN32_EXECUTABLE TRUE
-)
