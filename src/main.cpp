@@ -3,9 +3,6 @@
 #include "ball.h"
 
 
-//g++ works so much better on windows
-//g++ -o game.exe mainy.cpp -O2 -I./include -L./lib -lraylib -lopengl32 -lgdi32 -lwinmm -static -mwindows
-
 
 
 
