@@ -12,23 +12,23 @@ int main(){
     
     Rectangle rec = {100, 100, 50, 50};
         
-    Player *player = new Player(rec,20);
+    Player player(rec,20);
 
-    Ball *ball = new Ball({200,200},30);
+    Ball ball({200, 200}, 30);
 
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("Congrats", 190, 200, 20, LIGHTGRAY);
 
-        player->MovePlayer();
+        player.MovePlayer();
 
         
-        if (CheckCollisionCircleRec(ball->ShowCenter(),ball->ShowRadius(), player->ShowRec()))
-            ball->MoveBall();
+        if (CheckCollisionCircleRec(ball.ShowCenter(),ball.ShowRadius(), player.ShowRec()))
+            ball.MoveBall();
 
-        DrawRectangle(player->ShowRec().x,player->ShowRec().y,player->ShowRec().width,player->ShowRec().height, BLACK);
-        DrawCircle(ball->ShowCenter().x,ball->ShowCenter().y, ball->ShowRadius(), RED);
+        DrawRectangle(player.ShowRec().x,player.ShowRec().y,player.ShowRec().width,player.ShowRec().height, BLACK);
+        DrawCircle(ball.ShowCenter().x,ball.ShowCenter().y, ball.ShowRadius(), RED);
 
         
         
@@ -39,7 +39,5 @@ int main(){
         
     }
     CloseWindow();
-    delete player;
-    delete ball;
     return 0;
 }
