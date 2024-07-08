@@ -7,11 +7,16 @@ class Player{
     private:
         Rectangle pl;
         int balls;
+        float speedY;
+        float acceleration = 900.0f;
+        float jumpVelocity = -300.0f;
     public:
-        Player(Rectangle pl, int balls);
+        Player(Rectangle pl, int balls, float speedY);
         Rectangle ShowRec();
-        void MovePlayer();
+        void GravityOnPlayer();
         void Draw();
+        void Jump();
+        void Update(float delta);
 };
 
 #endif

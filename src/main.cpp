@@ -12,7 +12,7 @@ int main(){
     
     Rectangle rec = {100, 100, 50, 50};
         
-    Player player(rec,20);
+    Player player(rec,20,0);
 
     Ball ball({200, 200}, 30);
 
@@ -20,13 +20,16 @@ int main(){
         BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawText("Congrats", 190, 200, 20, LIGHTGRAY);
-
-        player.MovePlayer();
-
+        float delta = GetFrameTime();
         
-        if (CheckCollisionCircleRec(ball.ShowCenter(),ball.ShowRadius(), player.ShowRec()))
-            ball.MoveBall();
-
+        if (IsKeyPressed(KEY_SPACE)){
+            player.Jump();
+        }
+        
+        player.Update(delta);
+        
+        
+        
         player.Draw();
         ball.Draw();
         
