@@ -1,10 +1,13 @@
 #include "player.h"
+#include <raylib.h>
 
 Player::Player(Rectangle pl, int balls){
     this->pl = pl;
     this->balls = balls;
 }
-
+Rectangle Player::ShowRec(){
+    return pl;
+}
 void Player::MovePlayer(){
     float speed = 200.0;
     if (IsKeyDown(KEY_W))
@@ -19,6 +22,7 @@ void Player::MovePlayer(){
         pl.x += speed * GetFrameTime();
 }
 
-Rectangle Player::ShowRec(){
-    return pl;
+
+void Player::Draw(){
+    DrawRectangle(pl.x, pl.y, pl.width, pl.height, BLACK);
 }

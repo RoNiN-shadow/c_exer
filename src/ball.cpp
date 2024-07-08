@@ -1,19 +1,16 @@
 #include "ball.h"
-#include "raylib.h"
+#include <raylib.h>
 
 Ball::Ball(Vector2 center, float radius){
     this->center = center;
     this->radius = radius;
 }
-
 Vector2 Ball::ShowCenter(){
     return center;
 }
-
 float Ball::ShowRadius(){
     return radius;
 }
-
 void Ball::MoveBall(){
     float speed = 200.0;
     
@@ -34,4 +31,7 @@ void Ball::MoveBall(){
 
     center.x += dx;
     center.y += dy;
+}
+void Ball::Draw(){
+    DrawCircle(center.x, center.y, radius, RED);
 }

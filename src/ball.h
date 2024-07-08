@@ -1,7 +1,7 @@
 #ifndef BALL_H
 #define BALL_H
 
-#include "raylib.h"
+#include <raylib.h>
 
 class Ball{
     private:
@@ -12,7 +12,7 @@ class Ball{
         Vector2 ShowCenter();
         float ShowRadius();
         void MoveBall();
+        void Draw();
 };
-
 
 #endif

@@ -27,8 +27,8 @@ int main(){
         if (CheckCollisionCircleRec(ball.ShowCenter(),ball.ShowRadius(), player.ShowRec()))
             ball.MoveBall();
 
-        DrawRectangle(player.ShowRec().x,player.ShowRec().y,player.ShowRec().width,player.ShowRec().height, BLACK);
-        DrawCircle(ball.ShowCenter().x,ball.ShowCenter().y, ball.ShowRadius(), RED);
+        player.Draw();
+        ball.Draw();
 
         
         
