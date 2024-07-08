@@ -29,11 +29,6 @@ int main(){
 
         player.Draw();
         ball.Draw();
-
-        
-        
-        
-        
         
         EndDrawing();
         
