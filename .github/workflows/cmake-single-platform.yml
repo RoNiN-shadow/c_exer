@@ -24,13 +24,15 @@ jobs:
         sudo apt-get update && sudo apt-get install -y cmake g++ make
         sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
         sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev libasound2-dev libpulse-dev
+        sudo apt-get install -y libwayland-dev wayland-protocols libxkbcommon-dev
+        sudo apt-get install -y extra-cmake-modules libwayland-dev wayland-protocols libxkbcommon-dev
 
     - name: Install raylib
       run: |
         git clone https://github.com/raysan5/raylib.git
         cd raylib
         mkdir build && cd build
-        cmake -DBUILD_SHARED_LIBS=ON -DUSE_EXTERNAL_GLFW=OFF ..
+        cmake -DBUILD_SHARED_LIBS=ON -DUSE_EXTERNAL_GLFW=OFF -DPLATFORM=Desktop ..
         make
         sudo make install
         sudo ldconfig
