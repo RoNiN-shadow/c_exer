@@ -1,48 +1,46 @@
-name: CMake on a single platform
+cmake_minimum_required(VERSION 3.10)
+project(MyGame)
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-env:
-  BUILD_TYPE: Release
+# Add executable target
+if(WIN32)
+    add_executable(MyGameApp WIN32
+        src/main.cpp
+        src/player.cpp
+        src/ball.cpp
+    )
+else()
+    add_executable(MyGameApp
+        src/main.cpp
+        src/player.cpp
+        src/ball.cpp
+    )
+endif()
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# Include directories
+target_include_directories(MyGameApp PRIVATE include)
 
-    steps:
-    - uses: actions/checkout@v4
+# Find and link raylib
+find_package(raylib REQUIRED)
 
-    - name: Install latest CMake
-      uses: lukka/get-cmake@latest
+# Link libraries
+if(WIN32)
+    target_link_libraries(MyGameApp PRIVATE raylib opengl32 gdi32 winmm)
+else()
+    target_link_libraries(MyGameApp PRIVATE raylib GL m pthread dl rt X11)
+endif()
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update && sudo apt-get install -y cmake g++ make libx11-dev libgl1-mesa-dev libpulse-dev libxrandr-dev libxi-dev libxinerama-dev libxcursor-dev
-        sudo apt-get install -y libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
-        sudo apt-get install -y libwayland-dev libwayland-client0 libwayland-cursor0 libwayland-egl1 wayland-protocols libxkbcommon-dev libegl1-mesa-dev
-
-    - name: Install raylib
-      run: |
-        git clone https://github.com/raysan5/raylib.git
-        cd raylib/src
-        make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED RAYLIB_WAYLAND_USAGE=FALSE
-        sudo make install RAYLIB_LIBTYPE=SHARED
-
-    - name: Setup library path
-      run: |
-        sudo ldconfig
-        echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> $GITHUB_ENV
-
-    - name: Configure CMake
-      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-    - name: Build
-      run: cmake --build build --config ${{env.BUILD_TYPE}}
-
-    - name: Test
-      working-directory: build
-      run: ctest -C ${{env.BUILD_TYPE}}
+# Compiler options
+if(MSVC)
+    target_compile_options(MyGameApp PRIVATE /W4) # Warning level 4
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        target_compile_options(MyGameApp PRIVATE /O2 /MT) # Optimization and static runtime
+    elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_compile_options(MyGameApp PRIVATE /RTC1 /MTd) # Runtime checks and debug static runtime
+    endif()
+else()
+    target_compile_options(MyGameApp PRIVATE -Wall -Wextra -O2) # Warnings and optimization for GCC/Clang
+endif()
