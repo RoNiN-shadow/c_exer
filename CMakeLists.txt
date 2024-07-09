@@ -10,6 +10,7 @@ add_executable(MyGameApp WIN32
     src/main.cpp
     src/player.cpp
     src/pawn.cpp
+    src/spawner.cpp
 )
 
 # Include directories

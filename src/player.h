@@ -10,6 +10,7 @@ class Player{
         float speedY;
         float acceleration = 900.0f;
         float jumpVelocity = -300.0f;
+        bool IsAlive = true;
     public:
         Player(Rectangle pl, int balls, float speedY);
         Rectangle ShowRec();

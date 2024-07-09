@@ -26,3 +26,7 @@ void Pawn::Cheet(){
     }
     
 }
+void Pawn::Move(){
+    // speed += acceleration * GetFrameTime();
+    pwn.x += acceleration * GetFrameTime();
+}
