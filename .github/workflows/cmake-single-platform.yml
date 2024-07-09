@@ -30,7 +30,12 @@ jobs:
         git clone https://github.com/raysan5/raylib.git
         cd raylib/src
         make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED RAYLIB_WAYLAND_USAGE=FALSE
-        sudo make install
+        sudo make install RAYLIB_LIBTYPE=SHARED
+
+    - name: Setup library path
+      run: |
+        sudo ldconfig
+        echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> $GITHUB_ENV
 
     - name: Configure CMake
       run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
