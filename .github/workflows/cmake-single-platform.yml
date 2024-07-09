@@ -23,12 +23,13 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install -y cmake g++ make libx11-dev libgl1-mesa-dev libpulse-dev libxrandr-dev libxi-dev libxinerama-dev libxcursor-dev
         sudo apt-get install -y libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+        sudo apt-get install -y libwayland-dev libwayland-client0 libwayland-cursor0 libwayland-egl1 wayland-protocols libxkbcommon-dev libegl1-mesa-dev
 
     - name: Install raylib
       run: |
         git clone https://github.com/raysan5/raylib.git
         cd raylib/src
-        make PLATFORM=PLATFORM_DESKTOP
+        make PLATFORM=PLATFORM_DESKTOP RAYLIB_LIBTYPE=SHARED RAYLIB_WAYLAND_USAGE=FALSE
         sudo make install
 
     - name: Configure CMake
