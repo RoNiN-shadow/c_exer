@@ -10,21 +10,19 @@ if(WIN32)
     add_executable(MyGameApp WIN32
         src/main.cpp
         src/player.cpp
-        src/ball.cpp
+        src/pawn.cpp
     )
 else()
     add_executable(MyGameApp
         src/main.cpp
         src/player.cpp
-        src/ball.cpp
+        src/pawn.cpp
     )
 endif()
 
 # Include directories
 target_include_directories(MyGameApp PRIVATE include)
 
-# Find and link raylib
-find_package(raylib REQUIRED)
 
 # Link libraries
 if(WIN32)
