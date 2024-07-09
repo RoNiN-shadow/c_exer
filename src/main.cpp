@@ -4,14 +4,14 @@
 
 
 
-Rectangle recc = {100, 100, 50,50};
+Rectangle recc = {100, 50, 51,136};
 Pawn pawn(recc);
 
 int main(){
     InitWindow(800,450, "raylib");
     SetTargetFPS(60);
     
-    Rectangle rec = {100, 100, 50, 50};
+    Rectangle rec = {100, 100, 51, 50};
         
     Player player(rec,20,0);
 
