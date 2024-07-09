@@ -5,30 +5,42 @@ project(MyGame)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Add executable target with WIN32 to prevent terminal window
-add_executable(MyGameApp WIN32
-    src/main.cpp
-    src/player.cpp
-    src/ball.cpp
-)
+# Add executable target
+if(WIN32)
+    add_executable(MyGameApp WIN32
+        src/main.cpp
+        src/player.cpp
+        src/ball.cpp
+    )
+else()
+    add_executable(MyGameApp
+        src/main.cpp
+        src/player.cpp
+        src/ball.cpp
+    )
+endif()
 
 # Include directories
 target_include_directories(MyGameApp PRIVATE include)
 
-# Specify the path to the raylib library
-target_link_directories(MyGameApp PRIVATE ${CMAKE_SOURCE_DIR}/lib)
+# Find and link raylib
+find_package(raylib REQUIRED)
 
-# Link libraries (example with raylib)
-target_link_libraries(MyGameApp PRIVATE raylib opengl32 gdi32 winmm)
+# Link libraries
+if(WIN32)
+    target_link_libraries(MyGameApp PRIVATE raylib opengl32 gdi32 winmm)
+else()
+    target_link_libraries(MyGameApp PRIVATE raylib GL m pthread dl rt X11)
+endif()
 
-# Compiler options (example for MSVC and GCC/Clang)
-if (MSVC)
+# Compiler options
+if(MSVC)
     target_compile_options(MyGameApp PRIVATE /W4) # Warning level 4
-    if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
         target_compile_options(MyGameApp PRIVATE /O2 /MT) # Optimization and static runtime
     elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_options(MyGameApp PRIVATE /RTC1 /MTd) # Runtime checks and debug static runtime
-    endif ()
+    endif()
 else()
-    target_compile_options(MyGameApp PRIVATE -O2) # Optimization for GCC/Clang
-endif ()
+    target_compile_options(MyGameApp PRIVATE -Wall -Wextra -O2) # Warnings and optimization for GCC/Clang
+endif()
